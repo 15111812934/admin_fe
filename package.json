@@ -1,0 +1,8 @@
+{
+  "name": "admin_fe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:15111812934/admin_fe.git",
+  "author": "Aley <Aley@wemart.cn>",
+  "license": "MIT"
+}
