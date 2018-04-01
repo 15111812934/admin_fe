@@ -2,7 +2,7 @@
 * @Author: Aley
 * @Date:   2018-03-17 21:53:17
 * @Last Modified by:   Aley
-* @Last Modified time: 2018-03-18 00:21:55
+* @Last Modified time: 2018-04-01 14:35:21
 */
 
 const path              = require('path');
@@ -16,6 +16,12 @@ const config = {
    	 	path: path.resolve(__dirname, 'dist'),
    	 	publicPath:'/dist/',
     	filename: 'js/app.js'
+  	},
+  	resolve:{
+  		alias:{
+  			page     :path.resolve(__dirname, 'src/page'),
+  			component:path.resolve(__dirname, 'src/component')
+  		}
   	},
   	module: {
 		rules: [
@@ -64,7 +70,8 @@ const config = {
 	},
   	plugins: [
   		new HtmlWebpackPlugin({
-  			template:'./src/index.html'
+  			template:'./src/index.html',
+  			favicon:'./favicon.ico'
   		}),
   		new ExtractTextPlugin("css/[name].css"),
   		//提出公共模块
@@ -74,7 +81,11 @@ const config = {
   		})
   	],
   	devServer: {
-     	port:8086
+     	port:8086,
+     	// 路径的配置
+        historyApiFallback: {
+            index: '/dist/index.html'
+        }
     },
 };
 module.exports = config;

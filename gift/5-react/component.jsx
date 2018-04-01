@@ -98,7 +98,7 @@ class Component extends React.Component{
         this.state = {
             age: 18
         }
-        this.handleClick = this.handleClick.bind(this)
+        this.handleClick = this.handleClick.bind(this) //改变作用域
     }
     handleClick(){
         this.setState({
