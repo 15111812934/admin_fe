@@ -2,7 +2,7 @@
 * @Author: Aley
 * @Date:   2018-03-17 21:53:17
 * @Last Modified by:   Aley
-* @Last Modified time: 2018-04-01 14:35:21
+* @Last Modified time: 2018-04-06 00:36:02
 */
 
 const path              = require('path');
@@ -20,7 +20,9 @@ const config = {
   	resolve:{
   		alias:{
   			page     :path.resolve(__dirname, 'src/page'),
-  			component:path.resolve(__dirname, 'src/component')
+  			component:path.resolve(__dirname, 'src/component'),
+  			util     :path.resolve(__dirname, 'src/util'),
+  			service  :path.resolve(__dirname, 'src/service')
   		}
   	},
   	module: {
@@ -85,6 +87,17 @@ const config = {
      	// 路径的配置
         historyApiFallback: {
             index: '/dist/index.html'
+        },
+        //自动代理到后端的接口上
+        proxy:{
+			'/manage':{
+				target:'http://admintest.happymmall.com',
+				changeOrigin:true
+			},
+			'/user/logout.do':{
+				target:'http://admintest.happymmall.com',
+				changeOrigin:true
+			}
         }
     },
 };

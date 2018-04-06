@@ -1,0 +1,34 @@
+/*
+* @Author: Aley
+* @Date:   2018-04-05 21:29:46
+* @Last Modified by:   Aley
+* @Last Modified time: 2018-04-06 01:30:44
+*/
+.panel-login{
+	margin-top:35%;
+	min-height:255px;
+	min-width:400px;
+}
+.panel-login .login-header{
+	text-align:center;
+	color: #514d6a;
+	font-size:20px;
+}
+
+ .err-item {
+    position: relative;
+    padding: 4px 0 4px 5px;
+    margin-bottom: 10px;
+    border: 1px solid red;
+    background: #fde9e9;
+    color: red;
+    font-size:12px;
+    display:block;
+}
+ .err-item .err-icon {
+    position: absolute;
+    font-size: 14px;
+    left: 14px;
+    top: 50%;
+    margin-top: -7px;
+}

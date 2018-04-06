@@ -1,0 +1,39 @@
+/*
+* @Author: Aley
+* @Date:   2018-04-06 22:36:15
+* @Last Modified by:   Aley
+* @Last Modified time: 2018-04-06 23:39:48
+*/
+.color-box{
+	display:block;
+	height:160px;
+	text-align:center;
+	padding:20px 0px;
+	opacity:0.9;
+	transition:all .3s;
+	&:hover{
+		text-decoration:none;
+		color:#555;
+		opacity:1;
+		transform:scale(1.08);
+	}
+	&:focus{
+		text-decoration:none;
+	}
+	.count{
+		font-size:50px;
+		height:80px;
+		line-height:80px;
+	}
+	.desc{
+		font-size:18px;
+		.fa{
+			margin-right:5px;
+		}
+	}
+}
+@media (max-width: 994px) {
+  .media-margin-bottom{
+  	margin-bottom:20px ;
+  }
+}
