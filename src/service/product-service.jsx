@@ -2,10 +2,10 @@ import EUtil from 'util/em.jsx';
 const _em=new EUtil();
 
 class Product{
-	getUserList(pageNum){
+	getProductList(pageNum){
 		return _em.request({
 			type :'post',
-			url  :'/manage/user/list.do',
+			url  :'/manage/product/list.do',
 			data :{
 				pageNum:pageNum
 			}

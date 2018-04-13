@@ -1,9 +1,10 @@
-import React from 'react';
+import React     from 'react';
 import PageTitle from 'component/page-title/index.jsx';
-import { Link } from 'react-router-dom';
+import { Link }  from 'react-router-dom';
 
-import User  from 'service/user-service.jsx';
-import EUtil from 'util/em.jsx';
+import User         from 'service/user-service.jsx';
+import TableList    from 'util/table-list/index.jsx';
+import EUtil        from 'util/em.jsx';
 
 const _em=new EUtil();
 const _user=new User();
@@ -15,7 +16,6 @@ class UserList extends React.Component{
 		this.state = {
             list            : [],
             pageNum         : 1,
-            pages           : 0,
             firstLoading    : true 
         };
 	}
@@ -45,48 +45,24 @@ class UserList extends React.Component{
         });
     }
 	render(){
-		let listBody=this.state.list.map((user,index)=>{
-			return(
-				<tr key={ index }>
-					<td>{ user.id }</td>
-				    <td>{ user.username }</td>
-					<td>{ user.email }</td>
-					<td>{ user.phone }</td>
-					<td>{ new Date(user.createTime).toLocaleString() }</td>
-				</tr>
-			);
-		});
-		let listError=(
-			<tr >
-				<td colSpan="5" className="text-center ">
-					<div className="page-loading ">
-					    {this.state.firstLoading ? '正在加载数据...' :'未找到相应的结果'} 
-					</div>
-				</td>
-			</tr>
-		);
-		let tableBody=this.state.list.length ? listBody:listError;
 		return(
 			<div id="page-wrapper">
 				<PageTitle title="用户列表"/>
-				<div className="row">
-					<div className="col-md-12">
-						<table className="table table-striped table-border">
-							<thead>
-								<tr>
-									<th>ID</th>
-                                    <th>用户名</th>
-                                    <th>邮箱</th>
-                                    <th>电话</th>
-                                    <th>注册时间</th>
-								</tr>
-							</thead>
-							<tbody>
-							     {tableBody}
-						    </tbody>
-						</table>
-					</div>
-				</div>
+				<TableList tableHeads={['ID','用户名','邮箱','电话','注册时间']}>
+                {
+                   this.state.list.map((user,index) => {
+                        return(
+                            <tr key={ index }>
+                                <td>{ user.id }</td>
+                                <td>{ user.username }</td>
+                                <td>{ user.email }</td>
+                                <td>{ user.phone }</td>
+                                <td>{ new Date(user.createTime).toLocaleString() }</td>
+                            </tr>
+                        )
+                    })
+                 }      
+                </TableList> 
 				<Pagination current={this.state.pageNum} total={this.state.total} onChange={(pageNum)=>this.onPageNumChange(pageNum)}/>
 			</div>
 		);

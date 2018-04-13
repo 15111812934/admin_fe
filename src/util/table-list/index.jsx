@@ -1,4 +1,5 @@
 import React        from 'react';
+import './index.scss';
 
 
 //通用分页组件
@@ -24,11 +25,11 @@ class TableList extends React.Component{
 		let listBody=this.props.children;
 		let listInfo=(
 			<tr >
-				<td colSpan={this.props.tableHeads} className="text-center ">
-					<div className="page-loading ">
-					    {this.state.isFirstLoading ? '正在加载数据...' :'未找到相应的结果'} 
-					</div>
-				</td>
+				<td colSpan={this.props.tableHeads.length} className="text-center ">
+				    <div className="page-loading">
+				    	{this.state.isFirstLoading ? '正在加载数据...' :'未找到相应的数据'}
+				    </div>
+			    </td>
 			</tr>
 		);
 		let tableBody=listBody.length>0 ? listBody:listInfo;
