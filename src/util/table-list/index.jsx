@@ -19,7 +19,13 @@ class TableList extends React.Component{
 	render(){
 		//表头信息
 		let tableHeader=this.props.tableHeads.map(
-			(tableHead,index) => <th key={index}>{tableHead}</th>
+			(tableHead,index) =>{
+				if(typeof tableHead === 'object' ){
+					return <th key={index} width={tableHead.width}>{tableHead.name}</th>
+				}else if(typeof tableHead === 'string' ){
+ 					return <th key={index}>{tableHead}</th>
+				}
+			}
 		);
 		//列表内容
 		let listBody=this.props.children;
@@ -36,7 +42,7 @@ class TableList extends React.Component{
 		return(
 			<div className="row">
 					<div className="col-md-12">
-						<table className="table table-striped table-border">
+						<table className="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
 									{tableHeader}

@@ -36,6 +36,10 @@ class EUtil{
 		    result=queryString.match(reg); //result:['param=123','','123','&']
 		return result ? decodeURLComponent(result[2]):null;
 	}
+	//成功提示
+	successTips(successMsg){
+		alert(successMsg || '成功');
+	}
 	//错误提示
 	errTips(errMsg){
 		alert(errMsg || '好像哪里不对了');
