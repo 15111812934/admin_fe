@@ -104,7 +104,14 @@ class ProductList extends React.Component{
         ]
         return (
             <div id="page-wrapper">
-                <PageTitle title="商品列表"/>
+                <PageTitle title="商品管理">
+                    <div className="page-header-right">
+                        <Link className="btn btn-primary" to="/product/save">
+                            <i className="fa fa-plus fa-fw"></i>
+                            添加商品
+                        </Link>
+                    </div>
+                </PageTitle>
                 <ListSearch onSearch={(searchType,searchKeyword)=>{this.onSearch(searchType,searchKeyword)}}/>
                 <TableList tableHeads={ tableHeads }>
                 {
@@ -122,8 +129,8 @@ class ProductList extends React.Component{
                                     <button className="btn btn-xs btn-primary" onClick={(e)=>{this.onSetProductStatus(e,product.id,product.status)}}>{product.status == 1?'下架':'上架'} </button>
                                 </td>
                                 <td>
-                                    <Link className="opear" to={'./product/detail/${product.id}'}>查看详情</Link>
-                                    <Link className="opear" to={'./product/save/${product.id}'}>编辑</Link>
+                                    <Link className="opear" to={'/product/detail/${product.id}'}>查看详情</Link>
+                                    <Link className="opear" to={'/product/save/${product.id}'}>编辑</Link>
                                 </td>
                             </tr>
                         )
