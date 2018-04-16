@@ -2,5 +2,27 @@
 * @Author: Aley
 * @Date:   2018-04-07 20:58:08
 * @Last Modified by:   Aley
-* @Last Modified time: 2018-04-07 20:59:10
+* @Last Modified time: 2018-04-15 16:30:00
 */
+.sub-img{
+	position:relative;
+	width:80px;
+	height:80px;
+	float:left;
+	margin-right:10px;
+	border:1px solid #ccc;
+	.img{
+		width:100%;
+		height:100%;
+		display:block;
+	}
+}
+.img-con{
+	margin-bottom:15px;
+}
+.sub-img .fa-fw{
+	font-size:16px;
+	position:absolute;
+	right:-7px;
+	top:-7px;
+}
