@@ -8,14 +8,13 @@
 	margin-top:35%;
 	min-height:255px;
     max-width:360px;
+    .login-header{
+        text-align:center;
+        color: #514d6a;
+        font-size:20px;
+    }
 }
-.panel-login .login-header{
-	text-align:center;
-	color: #514d6a;
-	font-size:20px;
-}
-
- .err-item {
+.err-item {
     position: relative;
     padding: 4px 0 4px 5px;
     margin-bottom: 10px;
@@ -24,11 +23,11 @@
     color: red;
     font-size:12px;
     display:block;
-}
- .err-item .err-icon {
-    position: absolute;
-    font-size: 14px;
-    left: 14px;
-    top: 50%;
-    margin-top: -7px;
+    .err-icon {
+        position: absolute;
+        font-size: 14px;
+        left: 14px;
+        top: 50%;
+        margin-top: -7px;
+    }
 }

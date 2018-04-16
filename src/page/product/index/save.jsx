@@ -21,21 +21,40 @@ class ProductSave extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            id                  : this.props.match.params.pid,
+            name                : '',
+            subtitle            : '',
             categoryId          : 0,
             parentCategoryId    : 0,
-            subImages           :[],
-            detail              :'',
-            // name                : product.name,
-            // subtitle            : product.subtitle,
-            // price               : product.price,
-            // stock               : product.stock,
-            // status              : product.status
+            subImages           : [],
+            price               : '',
+            stock               : '',
+            detail              : '',
+            status              : 1 //商品状态1为在售
         };
     }
     componentDidMount(){
-        
+         this.loadProduct();
     }
-     // 普通字段更新
+    loadProduct(){
+        //有id时，表示是编辑功能，要回填表单
+        if(this.state.id){
+            _product.getProduct(this.state.id).then((res)=>{
+                let images = res.subImages.split(',');
+                res.subImages = images.map((imgUri) => {
+                    return {
+                        uri: imgUri,
+                        url: res.imageHost + imgUri
+                    }
+                });
+                res.defaultDetail = res.detail;
+                this.setState(res);
+            },(errMsg)=>{
+                _em.errorTips(errMsg);
+            })
+        }
+    }
+    // 普通字段更新
     onValueChange(e){
         let name    = e.target.name,
             value   = e.target.value;
@@ -79,22 +98,52 @@ class ProductSave extends React.Component{
             detail: newValue
         });
     }
+    getSubImagesString(){
+        return this.state.subImages.map((image)=>image.uri).join(',');
+    }
+    onSubmit(){
+        let product={
+            name:this.state.name,
+            subtitle:this.state.subtitle,
+            categoryId:parseInt(this.state.categoryId),
+            subImages:this.getSubImagesString(),
+            price:parseFloat(this.state.price),
+            stock:parseInt(this.state.stock),
+            detail:this.state.detail,
+            status:this.state.status
+        },
+        productCheckoutResult=_product.checkProduct(product);
+        if(this.state.id){
+            product.id=this.state.id;
+        }
+        if(productCheckoutResult.status){
+            _product.saveProduct(product).then((res)=>{
+                _em.successTips(res);
+                this.props.history.push('/product/index');
+            },(errMsg)=>{
+                _em.errorTips(errMsg)
+            })
+        }
+        //表单验证失败
+        else{
+            _em.errorTips(productCheckoutResult.msg);
+        }
+    }
     render() {
          return (
             <div id="page-wrapper">
-                <PageTitle title="添加商品">
+                <PageTitle title={this.state.id ? '编辑商品' : '添加商品'}>
                     <div className="f-right">
-                        <Link className="m-right-100 " to="/product/index">
+                        <Link  to="/product/index">
                             返回
                         </Link>
                     </div>
-                    <div className="page-header-right">
-                       
-                        <Link className="btn btn-primary" to="/product/save">
+                   {/* <div className="page-header-right">
+                       <Link className="btn btn-primary" to="/product/save" onClick={(e) => this.onSubmit(e)}>
                             <i className="fa fa-plus fa-fw"></i>
                             保存商品
-                        </Link>
-                    </div>
+                        </Link> 
+                    </div>*/}
                 </PageTitle>
                 <div className="row">
                     <div className="form-wrap col-lg-12">

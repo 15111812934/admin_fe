@@ -21,10 +21,34 @@ class CategorySelector extends React.Component{
 	componentDidMount(){
         this.loadFirstCategoryList();
     }
+    componentWillReceiveProps(nextProps){
+        let categoryIdChange        = this.props.categoryId !== nextProps.categoryId,
+            parentCategoryIdChange  = this.props.parentCategoryId !== nextProps.parentCategoryId;
+        // 数据没有发生变化的时候，直接不做处理
+        if(!categoryIdChange && !parentCategoryIdChange){
+            return;
+        }
+        // 假如只有一级品类
+        if(nextProps.parentCategoryId === 0){
+            this.setState({
+                firstCategoryId     : nextProps.categoryId,
+                secondCategoryId    : 0
+            });
+        }
+        // 有两级品类
+        else{
+            this.setState({
+                firstCategoryId     : nextProps.parentCategoryId,
+                secondCategoryId    : nextProps.categoryId
+            }, () => {
+                parentCategoryIdChange && this.loadSecondCategoryList();
+            });
+        }
+    }
     //加载一级分类
 	loadFirstCategoryList(){
 		//请求接口
-         _product.getCategory().then((res)=>{
+         _product.getCategoryList().then((res)=>{
              this.setState({
              	firstCategoryList:res
              });
@@ -86,7 +110,10 @@ class CategorySelector extends React.Component{
 	render(){
 		return(
 			<div className="col-md-10">
-                <select type="password" className="form-control cate-select col-md-5" value={this.state.firstCategoryId} onChange={(e) => this.onFirstCategoryChange(e)}>
+                <select type="password" className="form-control cate-select col-md-5" 
+                        value={this.state.firstCategoryId} 
+                        onChange={(e) => this.onFirstCategoryChange(e)}
+                        readOnly={this.props.readOnly} >
                     <option value="">请选择一级品类</option>
                     {
                     	this.state.firstCategoryList.map(
@@ -95,7 +122,10 @@ class CategorySelector extends React.Component{
                     }
                 </select>
                 { this.state.secondCategoryList.length ?
-                   (<select type="password" className="form-control cate-select col-md-5" value={this.state.secondCategoryId} onChange={(e) => this.onSecondCategoryChange(e)}>
+                   (<select type="password" className="form-control cate-select col-md-5" 
+                            value={this.state.secondCategoryId} 
+                            onChange={(e) => this.onSecondCategoryChange(e)}
+                            readOnly={this.props.readOnly} >
                     	<option value="">请选择二级品类</option>
                     	{
                     		this.state.secondCategoryList.map(

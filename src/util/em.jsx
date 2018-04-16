@@ -41,7 +41,7 @@ class EUtil{
 		alert(successMsg || '成功');
 	}
 	//错误提示
-	errTips(errMsg){
+	errorTips(errMsg){
 		alert(errMsg || '好像哪里不对了');
 	}
 	//存储内容

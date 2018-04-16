@@ -48,7 +48,7 @@ class Product{
         });
     }
     // 获取品类
-    getCategory(parentCategoryId){
+    getCategoryList(parentCategoryId){
         return _em.request({
         	type    :'post',
             url     : '/manage/category/get_category.do',
@@ -74,6 +74,48 @@ class Product{
             url     : '/manage/category/set_category_name.do',
             data    : category
         });
+    }
+    checkProduct(product){
+        let result={
+            status:true,
+            msg:'验证通过'
+        }
+        // 判断商品名称为空
+        if(typeof product.name !== 'string' || product.name.length ===0){
+            return {
+                status: false,
+                msg: '商品名称不能为空！'
+            }
+        }
+        // 判断商品描述为空
+        if(typeof product.subtitle !== 'string' || product.subtitle.length ===0){
+            return {
+                status: false,
+                msg: '商品描述不能为空！'
+            }
+        }
+        // 判断商品品类
+        if(typeof product.categoryId !== 'number' ||!(product.categoryId >0) ){
+            return {
+                status: false,
+                msg: '请选择商品品类！'
+            }
+        }
+        // 判断商品价格
+        if(typeof product.price !== 'number' || !(product.price>=0)){
+            return {
+                status: false,
+                msg: '请填入正确的商品价格'
+            }
+        }
+        // 判断商品库存
+        if(typeof product.stock !== 'number' || !(product.stock>=0)){
+            return {
+                status: false,
+                msg: '请填入正确的商品库存！'
+            }
+        }
+        return result;
     }
 }
 export default Product;
